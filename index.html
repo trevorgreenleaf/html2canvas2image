@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Convert</title>
+</head>
+<body>
+<style>
+
+
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    color:#fff;
+    font-size: 50px;
+}
+
+</style>
+
+<div id="meme" class="box">hello</div>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.js"></script>
+
+<script src="html2canvas.js"></script>
+<script>
+    
+$(function(){
+    
+    html2canvas($('#meme')).then(function(canvas) {
+        var image_data = canvas.toDataURL("image/png");
+        var image_data = image_data.replace('data:image/png;base64,', '');
+
+        // post data 
+        axios.post('/process.php', { 
+            image: image_data,
+        })
+        .then(function(response){
+            console.log(response)
+        });  
+
+    });
+
+});
+
+
+
+</script>
+    
+</body>
+</html>
